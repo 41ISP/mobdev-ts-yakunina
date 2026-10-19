@@ -1,11 +1,23 @@
-import { useState } from 'react';
+import { nanoid } from 'nanoid';
+import { FormEvent, useState } from 'react';
+import { IExpense } from '../types';
 
 export default function ExpenseForm() {
-  const [title, setTitle] = useState('');
-  const [amount, setAmount] = useState('');
+  const [title, setTitle] = useState<string>('');
+  const [amount, setAmount] = useState<string>('');
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault()
+    if (!title.trim() || !amount.trim()) return
+
+    const newExpense: IExpense = {
+      id: nanoid(),
+      title: title,
+      amount: Number(amount)
+    }
+  }
 
   return (
-    <form className="form" >
+    <form className="form" onSubmit={handleSubmit}>
       <input
         aria-label="Название"
         placeholder="Название"
