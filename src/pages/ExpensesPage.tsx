@@ -1,9 +1,10 @@
 import ExpenseForm from '../components/ExpenseForm'
 import ExpenseItem from '../components/ExpenseItem'
+import { useExpensesStore } from '../store/expensesStore'
 import { formatMoney } from '../utils'
 
 export default function ExpensesPage() {
-    const expenses: any[] = []
+    const { expenses } = useExpensesStore()
     const total = expenses.reduce((sum, e) => sum + e.amount, 0)
 
     return (
@@ -20,7 +21,7 @@ export default function ExpensesPage() {
             ) : (
                 <ul className="list">
                     {expenses.map((e) => (
-                        <ExpenseItem key={e.id} />
+                        <ExpenseItem expense={e} key={e.id} />
                     ))}
                 </ul>
             )}
